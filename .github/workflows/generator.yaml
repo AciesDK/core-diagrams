@@ -1,0 +1,79 @@
+name: diagram generator
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/generator.yaml'
+      - '*.drawio'
+
+concurrency:
+  group: drawio-export-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generator:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: checkout application
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: export drawio files as svg
+        uses: rlespinasse/drawio-export-action@v2
+        with:
+          path: ${{ github.workspace }}
+          format: svg
+          transparent: false
+          remove-page-suffix: true
+          output: ${{ github.workspace }}/output
+          action-mode: all
+
+      - name: export drawio files as png
+        uses: rlespinasse/drawio-export-action@v2
+        with:
+          path: ${{ github.workspace }}
+          format: png
+          transparent: false
+          remove-page-suffix: true
+          output: ${{ github.workspace }}/output
+          action-mode: all
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: diagrams
+          path: output
+
+      - name: README.md
+        run: |
+          echo "# Diagrams" > README.md
+
+          for f in output/*.svg; do
+            echo "## ${f##*/}" >> README.md
+            echo "![$f](https://github.com/AciesDK/core-diagrams/blob/master/$f?raw=true \"$f\")" >> README.md
+          done
+
+      - name: get author and committer info from HEAD commit
+        if: github.ref == 'refs/heads/master'
+        uses: rlespinasse/git-commit-data-action@v1.x
+
+      - name: commit changed files
+        id: auto-commit-action
+        if: github.ref == 'refs/heads/master'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: '**'
+          commit_message: 'docs: sync draw.io exported files'
+
+      - name: changes have been detected
+        if: steps.auto-commit-action.outputs.changes_detected == 'true'
+        run: echo 'Changes!'
+
+      - name: no changes have been detected
+        if: steps.auto-commit-action.outputs.changes_detected == 'false'
+        run: echo 'No changes!'
