@@ -6,10 +6,10 @@ on:
       - master
     paths:
       - '.github/workflows/generator.yaml'
-      - '*.drawio'
+      - '**/*.drawio'
 
 concurrency:
-  group: drawio-export-${{ github.ref }}
+  group: diagrams-export-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
