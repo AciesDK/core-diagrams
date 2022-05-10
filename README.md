@@ -1,5 +1,5 @@
-# Drawings
+# Diagrams
 ## events.svg
-![drawings/output/events.svg](https://github.com/AciesDK/core/blob/master/drawings/output/events.svg?raw=true "drawings/output/events.svg")
+![output/events.svg](https://github.com/AciesDK/core-diagrams/blob/master/output/events.svg?raw=true "output/events.svg")
 ## infrastructure.svg
-![drawings/output/infrastructure.svg](https://github.com/AciesDK/core/blob/master/drawings/output/infrastructure.svg?raw=true "drawings/output/infrastructure.svg")
+![output/infrastructure.svg](https://github.com/AciesDK/core-diagrams/blob/master/output/infrastructure.svg?raw=true "output/infrastructure.svg")
