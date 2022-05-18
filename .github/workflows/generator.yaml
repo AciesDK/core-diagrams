@@ -18,30 +18,35 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: cd diagrams
+        run: cd ${{ github.workspace }}/diagrams
+
       - name: checkout diagrams
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          path: diagrams
+
+      - name: get author and committer info from HEAD commit
+        if: github.ref == 'refs/heads/master'
+        uses: rlespinasse/git-commit-data-action@v1.x
+
+      - name: cd workspace
+        run: cd ${{ github.workspace }}
 
       - name: checkout artifacts
         uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          # fetch-depth: 1
           ref: artifacts
           path: artifacts
 
       - name: clear artifacts
         run: |
-          cd artifacts && git rm -r .
-
-      - name: cd diagrams
-        run: |
-          cd ${{ github.workspace }}/diagrams
+          cd artifacts && git rm -r
+          cd ${{ github.workspace }}
 
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
         with:
+          path: ${{ github.workspace }}/diagrams
           format: svg
           transparent: false
           remove-page-suffix: true
@@ -51,6 +56,7 @@ jobs:
       - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
         with:
+          path: ${{ github.workspace }}/diagrams
           format: png
           transparent: false
           remove-page-suffix: true
@@ -59,32 +65,12 @@ jobs:
 
       - name: README.md
         run: |
-          echo "# Diagrams" > README.md
+          echo "# Diagrams" > diagrams/README.md
 
           for f in artifacts/**/*.svg; do
-            echo "## ${f##*/}" >> README.md
-            echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> README.md
+            echo "## ${f##*/}" >> diagrams/README.md
+            echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> diagrams/README.md
           done
-
-      - name: get author and committer info from HEAD commit
-        if: github.ref == 'refs/heads/master'
-        uses: rlespinasse/git-commit-data-action@v1.x
-
-      - name: commit changed README.md
-        id: commit-readme
-        if: github.ref == 'refs/heads/master'
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          file_pattern: '**'
-          commit_message: 'docs: sync draw.io exported files'
-
-      - name: changes have been detected
-        if: steps.commit-readme.outputs.changes_detected == 'true'
-        run: echo 'Changes!'
-
-      - name: no changes have been detected
-        if: steps.commit-readme.outputs.changes_detected == 'false'
-        run: echo 'No changes!'
 
       - name: commit changed artifacts
         id: commit-artifacts
@@ -93,10 +79,8 @@ jobs:
         with:
           file_pattern: '**'
           commit_message: 'docs: sync draw.io exported files'
-          repository: ${{ github.workspace }}/artifacts
+          repository: artifacts
           branch: artifacts
-          skip_dirty_check: true
-          skip_fetch: true
 
       - name: changes have been detected
         if: steps.commit-artifacts.outputs.changes_detected == 'true'
@@ -104,4 +88,22 @@ jobs:
 
       - name: no changes have been detected
         if: steps.commit-artifacts.outputs.changes_detected == 'false'
+        run: echo 'No changes!'
+
+      - name: commit changed README.md
+        id: commit-readme
+        if: github.ref == 'refs/heads/master'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: '**'
+          commit_message: 'docs: sync draw.io exported files'
+          repository: diagrams
+          branch: master
+
+      - name: changes have been detected
+        if: steps.commit-readme.outputs.changes_detected == 'true'
+        run: echo 'Changes!'
+
+      - name: no changes have been detected
+        if: steps.commit-readme.outputs.changes_detected == 'false'
         run: echo 'No changes!'
