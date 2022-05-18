@@ -18,62 +18,90 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: checkout application
+      - name: checkout diagrams
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+          path: diagrams
 
-      - name: export drawio files as svg
+      - name: checkout artifacts
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          ref: artifacts
+          path: artifacts
+
+      - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/diagrams
           format: svg
           transparent: false
           remove-page-suffix: true
-          output: ${{ github.workspace }}/output
+          output: ${{ github.workspace }}/artifacts
           action-mode: all
 
-      - name: export drawio files as png
+      - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}
+          path: ${{ github.workspace }}/diagrams
           format: png
           transparent: false
           remove-page-suffix: true
-          output: ${{ github.workspace }}/output
+          output: ${{ github.workspace }}/artifacts
           action-mode: all
 
       - name: upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: diagrams
-          path: output
+          path: artifacts
 
       - name: README.md
         run: |
-          echo "# Diagrams" > README.md
+          echo "# Diagrams" > diagrams/README.md
 
-          for f in output/*.svg; do
-            echo "## ${f##*/}" >> README.md
-            echo "![$f](https://github.com/AciesDK/core-diagrams/blob/master/$f?raw=true \"$f\")" >> README.md
+          for f in artifacts/*.svg; do
+            echo "## ${f##*/}" >> diagrams/README.md
+            echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> diagrams/README.md
           done
 
       - name: get author and committer info from HEAD commit
         if: github.ref == 'refs/heads/master'
         uses: rlespinasse/git-commit-data-action@v1.x
 
-      - name: commit changed files
-        id: auto-commit-action
+      - name: commit changed artifacts
+        id: commit-artifacts
         if: github.ref == 'refs/heads/master'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           file_pattern: '**'
           commit_message: 'docs: sync draw.io exported files'
+          repository: artifacts
+          branch: artifacts
 
       - name: changes have been detected
-        if: steps.auto-commit-action.outputs.changes_detected == 'true'
+        if: steps.commit-artifacts.outputs.changes_detected == 'true'
         run: echo 'Changes!'
 
       - name: no changes have been detected
-        if: steps.auto-commit-action.outputs.changes_detected == 'false'
+        if: steps.commit-artifacts.outputs.changes_detected == 'false'
+        run: echo 'No changes!'
+
+      - name: commit changed README.md
+        id: commit-readme
+        if: github.ref == 'refs/heads/master'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: '**'
+          commit_message: 'docs: sync draw.io exported files'
+          repository: diagrams
+          branch: master
+
+      - name: changes have been detected
+        if: steps.commit-readme.outputs.changes_detected == 'true'
+        run: echo 'Changes!'
+
+      - name: no changes have been detected
+        if: steps.commit-readme.outputs.changes_detected == 'false'
         run: echo 'No changes!'
