@@ -28,27 +28,27 @@ jobs:
       - name: flatten folders
         run: |
           mkdir flatten
-          find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | cut -c 3- | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
+          find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | cut -c 3- | tr "/" "-" | tr " " "_"); cp "{}" "flatten/$new"' \;
           ls flatten
       
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}/flatten
+          path: flatten
           format: svg
           transparent: false
           remove-page-suffix: true
-          output: ${{ github.workspace }}/artifacts
+          output: artifacts
           action-mode: all
 
       - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}/flatten
+          path: flatten
           format: png
           transparent: false
           remove-page-suffix: true
-          output: ${{ github.workspace }}/artifacts
+          output: artifacts
           action-mode: all
 
       - name: README.md
