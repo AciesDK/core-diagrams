@@ -88,7 +88,7 @@ jobs:
           path: artifacts
 
       - name: clean up
-        run: rm -fr artifacts
+        run: sudo rm -fr artifacts
 
       - name: checkout artifacts
         uses: actions/checkout@v2
