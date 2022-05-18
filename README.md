@@ -1,6 +1,4 @@
 # Diagrams
-## flatten.services.bom.calculation.svg
-![artifacts/flatten.services.bom.calculation.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/flatten.services.bom.calculation.svg?raw=true "artifacts/flatten.services.bom.calculation.svg")
 ## infrastructure.svg
 ![artifacts/infrastructure.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/infrastructure.svg?raw=true "artifacts/infrastructure.svg")
 ## interservice-communication.svg
