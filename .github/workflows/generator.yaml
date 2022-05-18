@@ -34,7 +34,9 @@ jobs:
 
       - name: flatten folders
         run: |
-          cd ${{ github.workspace }}
+          ls
+          cd ..
+          ls
           mkdir flatten
           find diagrams -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
 
