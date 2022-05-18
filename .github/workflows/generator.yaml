@@ -42,7 +42,7 @@ jobs:
           transparent: false
           remove-page-suffix: true
           output: ${{ github.workspace }}/artifacts
-          action-mode: all
+          # action-mode: all
 
       - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
@@ -52,19 +52,19 @@ jobs:
           transparent: false
           remove-page-suffix: true
           output: ${{ github.workspace }}/artifacts
-          action-mode: all
+          # action-mode: all
 
-      - name: upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: diagrams
-          path: artifacts
+      # - name: upload artifacts
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: diagrams
+      #     path: artifacts
 
       - name: README.md
         run: |
           echo "# Diagrams" > diagrams/README.md
 
-          for f in artifacts/*.svg; do
+          for f in artifacts/**/*.svg; do
             echo "## ${f##*/}" >> diagrams/README.md
             echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> diagrams/README.md
           done
