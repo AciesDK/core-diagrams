@@ -28,7 +28,7 @@ jobs:
       - name: flatten folders
         run: |
           mkdir flatten
-          find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
+          find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/${new:3}"' \;
 
       - name: checkout artifacts
         uses: actions/checkout@v2
@@ -75,7 +75,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file_pattern: '**'
+          # file_pattern: '**'
           commit_message: 'docs: sync draw.io exported files'
           repository: artifacts
           branch: artifacts
