@@ -42,7 +42,7 @@ jobs:
 
       - name: clear artifacts
         run: |
-          cd artifacts && git rm -r
+          cd artifacts && git rm -r .
           cd ${{ github.workspace }}
 
       - name: flatten folders
