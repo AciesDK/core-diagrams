@@ -28,6 +28,7 @@ jobs:
       - name: flatten folders
         run: |
           mkdir flatten
+          mkdir artifacts
           find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | cut -c 3- | tr "/" "-" | tr " " "_"); cp "{}" "flatten/$new"' \;
           ls flatten
       
@@ -38,7 +39,7 @@ jobs:
           format: svg
           transparent: false
           remove-page-suffix: true
-          output: artifacts
+          output: ${{ github.workspace }}/artifacts
           action-mode: all
 
       - name: build drawio files as png
@@ -48,11 +49,13 @@ jobs:
           format: png
           transparent: false
           remove-page-suffix: true
-          output: artifacts
+          output: ${{ github.workspace }}/artifacts
           action-mode: all
 
       - name: README.md
         run: |
+          ls artifacts
+
           echo "# Diagrams" > README.md
 
           for f in artifacts/*.svg; do
