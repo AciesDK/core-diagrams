@@ -20,12 +20,6 @@ jobs:
     steps:
       - name: checkout diagrams
         uses: actions/checkout@v2
-        with:
-          path: diagrams
-
-      # - name: cd diagrams
-      #   run: |
-      #     cd diagrams
 
       - name: get author and committer info from HEAD commit
         if: github.ref == 'refs/heads/master'
@@ -33,9 +27,8 @@ jobs:
 
       - name: flatten folders
         run: |
-          ls
           mkdir flatten
-          find diagrams -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
+          find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
 
       - name: checkout artifacts
         uses: actions/checkout@v2
@@ -70,11 +63,11 @@ jobs:
 
       - name: README.md
         run: |
-          echo "# Diagrams" > diagrams/README.md
+          echo "# Diagrams" > README.md
 
           for f in artifacts/**/*.svg; do
-            echo "## ${f##*/}" >> diagrams/README.md
-            echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> diagrams/README.md
+            echo "## ${f##*/}" >> README.md
+            echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> README.md
           done
 
       - name: commit changed artifacts
@@ -100,9 +93,8 @@ jobs:
         if: github.ref == 'refs/heads/master'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file_pattern: '**'
+          file_pattern: 'README.md'
           commit_message: 'docs: sync draw.io exported files'
-          repository: diagrams
           branch: master
 
       - name: changes have been detected
