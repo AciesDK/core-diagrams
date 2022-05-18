@@ -38,7 +38,8 @@ jobs:
 
       - name: clear artifacts
         run: |
-          git rm artifacts/* || echo "no files"
+          git rm -r artifacts/ || echo "no files"
+          cd ${{ github.workspace }}
 
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
