@@ -27,6 +27,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
+          path: .
 
       - name: get author and committer info from HEAD commit
         if: github.ref == 'refs/heads/master'
