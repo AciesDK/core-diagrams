@@ -90,7 +90,6 @@ jobs:
       - name: clear artifacts
         run: |
           git rm -r . || echo "no files"
-          mv ../artifacts/* .
 
       - name: download artifacts
         uses: actions/download-artifact@v2
