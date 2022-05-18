@@ -53,7 +53,7 @@ jobs:
 
       - name: unflatten
         run: |
-          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr " " "/"); folder=$(dirname "$new"); sudo mkdir -p "$folder" && mv "{}" "$new" || echo "same"' \;
+          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr " " "/"); folder=$(dirname "$new"); sudo mkdir -p "$folder" && sudo mv "{}" "$new" || echo "same"' \;
           ls artifacts
 
       - name: README.md
