@@ -38,27 +38,26 @@ jobs:
 
       - name: clear artifacts
         run: |
-          cd artifacts && git rm -r . || echo "no files"
-          cd ${{ github.workspace }}
+          git rm artifacts/* || echo "no files"
 
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}/flatten
+          path: flatten
           format: svg
           transparent: false
           remove-page-suffix: true
-          output: ${{ github.workspace }}/artifacts
+          output: artifacts
           action-mode: all
 
       - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}/flatten
+          path: flatten
           format: png
           transparent: false
           remove-page-suffix: true
-          output: ${{ github.workspace }}/artifacts
+          output: artifacts
           action-mode: all
 
       - name: README.md
