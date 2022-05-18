@@ -23,9 +23,9 @@ jobs:
         with:
           path: diagrams
 
-      - name: cd diagrams
-        run: |
-          cd diagrams
+      # - name: cd diagrams
+      #   run: |
+      #     cd diagrams
 
       - name: get author and committer info from HEAD commit
         if: github.ref == 'refs/heads/master'
