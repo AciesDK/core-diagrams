@@ -38,7 +38,7 @@ jobs:
 
       - name: clear artifacts
         run: |
-          cd artifacts && git rm -r .
+          cd artifacts && git rm -r . || echo "no files"
           cd ${{ github.workspace }}
 
       - name: build drawio files as svg
