@@ -28,7 +28,7 @@ jobs:
       - name: flatten folders
         run: |
           mkdir flatten
-          find . -name \*.drawio -type f -exec sh -c 'echo {}; new=$(echo "{}" | cut -c 3- | tr "/" "." | tr " " "-"); cp "{}" "flatten/$new"' \;
+          find . -name \*.drawio -not -path "./flatten/*" -exec sh -c 'echo {}; new=$(echo "{}" | cut -c 3- | tr "/" "." | tr " " "-"); cp "{}" "flatten/$new"' \;
           ls flatten
       
       - name: build drawio files as svg
