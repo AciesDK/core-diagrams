@@ -87,23 +87,18 @@ jobs:
           name: diagrams
           path: artifacts
 
-      - name: clean up
-        run: rm -f artifacts
+      - name: tmp move
+        run: mv artifacts /tmp/artifacts
 
       - name: checkout artifacts
         uses: actions/checkout@v2
         with:
           ref: artifacts
 
-      - name: clear artifacts
+      - name: reset artifacts
         run: |
           git rm -r . || echo "no files"
-
-      - name: download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: diagrams
-          path: .
+          mv /tmp/artifacts/ .
 
       - name: commit changed artifacts
         id: commit-artifacts
