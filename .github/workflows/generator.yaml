@@ -30,17 +30,6 @@ jobs:
           mkdir flatten
           find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | cut -c 3- | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
 
-      - name: checkout artifacts
-        uses: actions/checkout@v2
-        with:
-          ref: artifacts
-          path: artifacts
-
-      - name: clear artifacts
-        run: |
-          git rm -r artifacts/ || echo "no files"
-          cd ${{ github.workspace }}
-
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
         with:
@@ -65,28 +54,10 @@ jobs:
         run: |
           echo "# Diagrams" > README.md
 
-          for f in artifacts/**/*.svg; do
+          for f in artifacts/*.svg; do
             echo "## ${f##*/}" >> README.md
             echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> README.md
           done
-
-      - name: commit changed artifacts
-        id: commit-artifacts
-        if: github.ref == 'refs/heads/master'
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          # file_pattern: '**'
-          commit_message: 'docs: sync draw.io exported files'
-          repository: artifacts
-          branch: artifacts
-
-      - name: changes have been detected
-        if: steps.commit-artifacts.outputs.changes_detected == 'true'
-        run: echo 'Changes!'
-
-      - name: no changes have been detected
-        if: steps.commit-artifacts.outputs.changes_detected == 'false'
-        run: echo 'No changes!'
 
       - name: commit changed README.md
         id: commit-readme
@@ -103,4 +74,34 @@ jobs:
 
       - name: no changes have been detected
         if: steps.commit-readme.outputs.changes_detected == 'false'
+        run: echo 'No changes!'
+
+      - name: move artifacts
+        run: mv artifacts ../artifacts
+
+      - name: checkout artifacts
+        uses: actions/checkout@v2
+        with:
+          ref: artifacts
+
+      - name: clear artifacts
+        run: |
+          git rm -r . || echo "no files"
+          mv ../artifacts .
+
+      - name: commit changed artifacts
+        id: commit-artifacts
+        if: github.ref == 'refs/heads/master'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'docs: sync draw.io exported files'
+          repository: artifacts
+          branch: artifacts
+
+      - name: changes have been detected
+        if: steps.commit-artifacts.outputs.changes_detected == 'true'
+        run: echo 'Changes!'
+
+      - name: no changes have been detected
+        if: steps.commit-artifacts.outputs.changes_detected == 'false'
         run: echo 'No changes!'
