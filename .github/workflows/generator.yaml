@@ -42,7 +42,7 @@ jobs:
           transparent: false
           remove-page-suffix: true
           output: ${{ github.workspace }}/artifacts
-          # action-mode: all
+          action-mode: all
 
       - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
@@ -52,13 +52,7 @@ jobs:
           transparent: false
           remove-page-suffix: true
           output: ${{ github.workspace }}/artifacts
-          # action-mode: all
-
-      # - name: upload artifacts
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: diagrams
-      #     path: artifacts
+          action-mode: all
 
       - name: README.md
         run: |
