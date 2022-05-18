@@ -59,7 +59,7 @@ jobs:
         run: |
           echo "# Diagrams" > README.md
 
-          for f in *.svg; do
+          for f in $(find artifacts -name '*.svg'); do
             echo "## ${f##*/}" >> README.md
             echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> README.md
           done
