@@ -54,13 +54,12 @@ jobs:
       - name: unflatten
         run: |
           find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr " " "/"); folder=$(dirname "$new"); sudo mkdir -p "$folder" && sudo mv "{}" "$new" || echo "same"' \;
-          ls artifacts
 
       - name: README.md
         run: |
           echo "# Diagrams" > README.md
 
-          for f in artifacts/*.svg; do
+          for f in *.svg; do
             echo "## ${f##*/}" >> README.md
             echo "![$f](https://github.com/AciesDK/core-diagrams/blob/$f?raw=true \"$f\")" >> README.md
           done
