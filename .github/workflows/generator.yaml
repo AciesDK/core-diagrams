@@ -27,6 +27,7 @@ jobs:
 
       - name: flatten
         run: |
+          mkdir artifacts
           mkdir flatten
           find . -name \*.drawio -not -path "./flatten/*" -exec sh -c 'echo {}; new=$(echo "{}" | cut -c 3- | tr " " "-" | tr "/" " "); cp "{}" "flatten/$new"' \;
       
@@ -52,7 +53,7 @@ jobs:
 
       - name: unflatten
         run: |
-          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr " " "/"); folder=$(dirname "$new"); echo $folder && mkdir -p "$folder" && mv "{}" "$new" || echo "same"' \;
+          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr " " "/"); folder=$(dirname "$new"); sudo mkdir -p "$folder" && mv "{}" "$new" || echo "same"' \;
           ls artifacts
 
       - name: README.md
