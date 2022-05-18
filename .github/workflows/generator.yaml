@@ -32,7 +32,9 @@ jobs:
           path: artifacts
 
       - name: clear artifacts
-        run: cd artifacts && git rm -r *; cd ..
+        run: |
+          cd artifacts && git rm -r
+          cd ${{ github.workspace }}
 
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
@@ -76,6 +78,8 @@ jobs:
           commit_message: 'docs: sync draw.io exported files'
           repository: artifacts
           branch: artifacts
+          skip_dirty_check: true
+          skip_fetch: true
 
       - name: changes have been detected
         if: steps.commit-artifacts.outputs.changes_detected == 'true'
