@@ -28,7 +28,7 @@ jobs:
       - name: flatten
         run: |
           mkdir flatten
-          find . -name \*.drawio -not -path "./flatten/*" -exec sh -c 'echo {}; new=$(echo "{}" | cut -c 3- | tr "/" "¤" | tr " " "-"); cp "{}" "flatten/$new"' \;
+          find . -name \*.drawio -not -path "./flatten/*" -exec sh -c 'echo {}; new=$(echo "{}" | cut -c 3- | tr "/" "," | tr " " "-"); cp "{}" "flatten/$new"' \;
       
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
@@ -52,7 +52,7 @@ jobs:
 
       - name: unflatten
         run: |
-          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr "¤" "/"); folder=$(echo dirname "$new"); mkdir -p "$folder" && mv "{}" "$new"' \;
+          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr "," "/" | tr ); folder=$(echo dirname "$new"); mkdir -p "$folder" && mv "{}" "$new"' \;
           ls artifacts
 
       - name: README.md
