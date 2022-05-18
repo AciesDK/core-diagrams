@@ -32,7 +32,7 @@ jobs:
           path: artifacts
 
       - name: clear artifacts
-        run: git rm -fr artifacts/*
+        run: git --work-tree=artifacts rm -fr .
 
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
