@@ -19,7 +19,9 @@ jobs:
       contents: write
     steps:
       - name: cd diagrams
-        run: cd ${{ github.workspace }}/diagrams
+        run: |
+          mkdir ${{ github.workspace }}/diagrams
+          cd ${{ github.workspace }}/diagrams
 
       - name: checkout diagrams
         uses: actions/checkout@v2
@@ -43,10 +45,15 @@ jobs:
           cd artifacts && git rm -r
           cd ${{ github.workspace }}
 
+      - name: flatten folders
+        run: |
+          mkdir flatten
+          find diagrams -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
+
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}/diagrams
+          path: ${{ github.workspace }}/flatten
           format: svg
           transparent: false
           remove-page-suffix: true
@@ -56,7 +63,7 @@ jobs:
       - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: ${{ github.workspace }}/diagrams
+          path: ${{ github.workspace }}/flatten
           format: png
           transparent: false
           remove-page-suffix: true
