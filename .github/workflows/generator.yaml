@@ -29,7 +29,6 @@ jobs:
         run: |
           mkdir flatten
           find . -name \*.drawio -not -path "./flatten/*" -exec sh -c 'echo {}; new=$(echo "{}" | cut -c 3- | tr "/" "." | tr " " "-"); cp "{}" "flatten/$new"' \;
-          ls flatten
       
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
@@ -77,8 +76,11 @@ jobs:
         if: steps.commit-readme.outputs.changes_detected == 'false'
         run: echo 'No changes!'
 
-      - name: move artifacts
-        run: mv artifacts ../artifacts
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: diagrams
+          path: artifacts
 
       - name: checkout artifacts
         uses: actions/checkout@v2
@@ -89,6 +91,12 @@ jobs:
         run: |
           git rm -r . || echo "no files"
           mv ../artifacts/* .
+
+      - name: download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: diagrams
+          path: .
 
       - name: commit changed artifacts
         id: commit-artifacts
