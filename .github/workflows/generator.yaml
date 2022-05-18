@@ -67,19 +67,12 @@ jobs:
       - name: commit changed README.md
         id: commit-readme
         if: github.ref == 'refs/heads/master'
+        continue-on-error: true
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           file_pattern: 'README.md'
           commit_message: 'docs: sync draw.io exported files'
           branch: master
-
-      - name: changes have been detected
-        if: steps.commit-readme.outputs.changes_detected == 'true'
-        run: echo 'Changes!'
-
-      - name: no changes have been detected
-        if: steps.commit-readme.outputs.changes_detected == 'false'
-        run: echo 'No changes!'
 
       - name: upload artifacts
         uses: actions/upload-artifact@v2
@@ -108,15 +101,8 @@ jobs:
       - name: commit changed artifacts
         id: commit-artifacts
         if: github.ref == 'refs/heads/master'
+        continue-on-error: true
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'docs: sync draw.io exported files'
           branch: artifacts
-
-      - name: changes have been detected
-        if: steps.commit-artifacts.outputs.changes_detected == 'true'
-        run: echo 'Changes!'
-
-      - name: no changes have been detected
-        if: steps.commit-artifacts.outputs.changes_detected == 'false'
-        run: echo 'No changes!'
