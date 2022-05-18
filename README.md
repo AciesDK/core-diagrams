@@ -1,7 +1,7 @@
 # Diagrams
 ## calculation.svg
-![output/calculation.svg](https://github.com/AciesDK/core-diagrams/blob/master/output/calculation.svg?raw=true "output/calculation.svg")
+![artifacts/calculation.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/calculation.svg?raw=true "artifacts/calculation.svg")
 ## events.svg
-![output/events.svg](https://github.com/AciesDK/core-diagrams/blob/master/output/events.svg?raw=true "output/events.svg")
+![artifacts/events.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/events.svg?raw=true "artifacts/events.svg")
 ## infrastructure.svg
-![output/infrastructure.svg](https://github.com/AciesDK/core-diagrams/blob/master/output/infrastructure.svg?raw=true "output/infrastructure.svg")
+![artifacts/infrastructure.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/infrastructure.svg?raw=true "artifacts/infrastructure.svg")
