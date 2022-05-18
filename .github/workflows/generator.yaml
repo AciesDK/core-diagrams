@@ -52,7 +52,7 @@ jobs:
 
       - name: unflatten
         run: |
-          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr "," "/" | tr ); folder=$(echo dirname "$new"); mkdir -p "$folder" && mv "{}" "$new"' \;
+          find artifacts -type f -exec sh -c 'echo {}; new=$(echo "{}" | tr "," "/"); folder=$(echo dirname "$new"); mkdir -p "$folder" && mv "{}" "$new"' \;
           ls artifacts
 
       - name: README.md
