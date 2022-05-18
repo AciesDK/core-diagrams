@@ -20,23 +20,28 @@ jobs:
     steps:
       - name: cd diagrams
         run: |
-          mkdir ${{ github.workspace }}/diagrams
-          cd ${{ github.workspace }}/diagrams
+          mkdir diagrams
+          cd diagrams
 
       - name: checkout diagrams
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
 
       - name: get author and committer info from HEAD commit
         if: github.ref == 'refs/heads/master'
         uses: rlespinasse/git-commit-data-action@v1.x
 
-      - name: cd workspace
-        run: cd ${{ github.workspace }}
+      - name: flatten folders
+        run: |
+          cd ${{ github.workspace }}
+          mkdir flatten
+          find diagrams -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
 
       - name: checkout artifacts
         uses: actions/checkout@v2
         with:
-          # fetch-depth: 1
+          fetch-depth: 1
           ref: artifacts
           path: artifacts
 
@@ -44,11 +49,6 @@ jobs:
         run: |
           cd artifacts && git rm -r .
           cd ${{ github.workspace }}
-
-      - name: flatten folders
-        run: |
-          mkdir flatten
-          find diagrams -name \*.drawio -exec sh -c 'new=$(echo "{}" | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
 
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
