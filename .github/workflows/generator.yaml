@@ -29,25 +29,26 @@ jobs:
         run: |
           mkdir flatten
           find . -name \*.drawio -exec sh -c 'new=$(echo "{}" | cut -c 3- | tr "/" "-" | tr " " "_"); echo cp "{}" "flatten/$new"' \;
-
+          ls flatten
+      
       - name: build drawio files as svg
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: flatten
+          path: ${{ github.workspace }}/flatten
           format: svg
           transparent: false
           remove-page-suffix: true
-          output: artifacts
+          output: ${{ github.workspace }}/artifacts
           action-mode: all
 
       - name: build drawio files as png
         uses: rlespinasse/drawio-export-action@v2
         with:
-          path: flatten
+          path: ${{ github.workspace }}/flatten
           format: png
           transparent: false
           remove-page-suffix: true
-          output: artifacts
+          output: ${{ github.workspace }}/artifacts
           action-mode: all
 
       - name: README.md
@@ -87,7 +88,7 @@ jobs:
       - name: clear artifacts
         run: |
           git rm -r . || echo "no files"
-          mv ../artifacts .
+          mv ../artifacts/ .
 
       - name: commit changed artifacts
         id: commit-artifacts
@@ -95,7 +96,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'docs: sync draw.io exported files'
-          repository: artifacts
           branch: artifacts
 
       - name: changes have been detected
