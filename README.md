@@ -1,11 +1,13 @@
 # Diagrams
-## infrastructure.svg
-![artifacts/infrastructure.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/infrastructure.svg?raw=true "artifacts/infrastructure.svg")
-## calculation.svg
-![artifacts/services/bom/calculation.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/bom/calculation.svg?raw=true "artifacts/services/bom/calculation.svg")
 ## Task.svg
 ![artifacts/services/pipe/Task.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/pipe/Task.svg?raw=true "artifacts/services/pipe/Task.svg")
+## calculation.svg
+![artifacts/services/bom/calculation.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/bom/calculation.svg?raw=true "artifacts/services/bom/calculation.svg")
 ## AciesOne-PDF.svg
 ![artifacts/services/docs/AciesOne-PDF.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/docs/AciesOne-PDF.svg?raw=true "artifacts/services/docs/AciesOne-PDF.svg")
+## Service-Dependencies.svg
+![artifacts/services/configurator/Service-Dependencies.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/configurator/Service-Dependencies.svg?raw=true "artifacts/services/configurator/Service-Dependencies.svg")
+## infrastructure.svg
+![artifacts/infrastructure.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/infrastructure.svg?raw=true "artifacts/infrastructure.svg")
 ## interservice-communication.svg
 ![artifacts/interservice-communication.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/interservice-communication.svg?raw=true "artifacts/interservice-communication.svg")
