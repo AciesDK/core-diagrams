@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-08-22T10:41:53.742Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="TXsC52RM-IQChunyb3QA" version="21.6.8" type="device">
+<mxfile host="Electron" modified="2023-08-22T11:17:17.183Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" etag="uDP6cVP65fNfKnvpULK5" version="21.6.8" type="device">
   <diagram name="Page-1" id="pT9zCR7jW5yzUa4xEAgO">
     <mxGraphModel dx="1562" dy="2112" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -1629,7 +1629,7 @@
           <mxGeometry x="60" y="34" width="50" height="50" as="geometry" />
         </mxCell>
         <mxCell id="uKxJgO5xpR6dhFuR6hYP-136" value="" style="shape=datastore;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;aspect=fixed;" vertex="1" parent="uKxJgO5xpR6dhFuR6hYP-134">
-          <mxGeometry x="310" y="119" width="40" height="40" as="geometry" />
+          <mxGeometry x="270" y="119" width="40" height="40" as="geometry" />
         </mxCell>
         <mxCell id="uKxJgO5xpR6dhFuR6hYP-137" value="Update step status to &quot;processing&quot;" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task;whiteSpace=wrap;rectStyle=rounded;size=10;taskMarker=abstract;" vertex="1" parent="uKxJgO5xpR6dhFuR6hYP-134">
           <mxGeometry x="270" y="19" width="120" height="80" as="geometry" />
@@ -1789,6 +1789,30 @@
         </mxCell>
         <mxCell id="uKxJgO5xpR6dhFuR6hYP-198" value="" style="shape=datastore;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;aspect=fixed;" vertex="1" parent="uKxJgO5xpR6dhFuR6hYP-134">
           <mxGeometry x="350" y="193" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uKxJgO5xpR6dhFuR6hYP-200" value="Jobs are executed by hardcoded runner engines and defines how AciesCore should communicate internally with other services to generate the requested job step data.&amp;nbsp;" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;fontSize=10;horizontal=1;" vertex="1" parent="uKxJgO5xpR6dhFuR6hYP-134">
+          <mxGeometry x="80" y="227" width="270" height="73" as="geometry" />
+        </mxCell>
+        <mxCell id="uKxJgO5xpR6dhFuR6hYP-201" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;rounded=0;" edge="1" parent="uKxJgO5xpR6dhFuR6hYP-134" target="uKxJgO5xpR6dhFuR6hYP-200" source="uKxJgO5xpR6dhFuR6hYP-169">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="40" y="208" as="sourcePoint" />
+            <mxPoint x="85.82278481012645" y="228" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uKxJgO5xpR6dhFuR6hYP-202" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;rounded=0;" edge="1" parent="uKxJgO5xpR6dhFuR6hYP-134" source="uKxJgO5xpR6dhFuR6hYP-168" target="uKxJgO5xpR6dhFuR6hYP-200">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="40" y="208" as="sourcePoint" />
+            <mxPoint x="85.82278481012645" y="228" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uKxJgO5xpR6dhFuR6hYP-203" value="Step output is made available as input for subsequently job steps.&amp;nbsp;" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=14;verticalAlign=top;align=left;fontSize=10;horizontal=1;" vertex="1" parent="uKxJgO5xpR6dhFuR6hYP-134">
+          <mxGeometry x="770" y="219" width="130" height="63" as="geometry" />
+        </mxCell>
+        <mxCell id="uKxJgO5xpR6dhFuR6hYP-204" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 4;strokeWidth=1;rounded=0;" edge="1" parent="uKxJgO5xpR6dhFuR6hYP-134" target="uKxJgO5xpR6dhFuR6hYP-203" source="uKxJgO5xpR6dhFuR6hYP-195">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1380" y="59" as="sourcePoint" />
+            <mxPoint x="1045.8227848101264" y="188" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="U1KqUVC1e1E0VkJmuzpn-89" value="POST /planning/artifacts" style="dashed=1;dashPattern=8 4;endArrow=blockThin;endFill=1;startArrow=oval;startFill=0;endSize=6;startSize=4;rounded=0;edgeStyle=elbowEdgeStyle;elbow=vertical;" parent="1" source="U1KqUVC1e1E0VkJmuzpn-86" target="U1KqUVC1e1E0VkJmuzpn-88" edge="1">
           <mxGeometry x="0.8879" width="160" relative="1" as="geometry">
