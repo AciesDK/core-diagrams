@@ -1,6 +1,8 @@
 # Diagrams
 ## Service-Dependencies.svg
 ![artifacts/services/configurator/Service-Dependencies.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/configurator/Service-Dependencies.svg?raw=true "artifacts/services/configurator/Service-Dependencies.svg")
+## One.svg
+![artifacts/services/one/One.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/one/One.svg?raw=true "artifacts/services/one/One.svg")
 ## calculation.svg
 ![artifacts/services/bom/calculation.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/bom/calculation.svg?raw=true "artifacts/services/bom/calculation.svg")
 ## Task.svg
