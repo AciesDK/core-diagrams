@@ -11,6 +11,8 @@
 ![artifacts/services/planning/Planning.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/planning/Planning.svg?raw=true "artifacts/services/planning/Planning.svg")
 ## AciesOne-PDF.svg
 ![artifacts/services/docs/AciesOne-PDF.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/services/docs/AciesOne-PDF.svg?raw=true "artifacts/services/docs/AciesOne-PDF.svg")
+## aciesone-testing-environments.svg
+![artifacts/aciesone-testing-environments.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/aciesone-testing-environments.svg?raw=true "artifacts/aciesone-testing-environments.svg")
 ## infrastructure.svg
 ![artifacts/infrastructure.svg](https://github.com/AciesDK/core-diagrams/blob/artifacts/infrastructure.svg?raw=true "artifacts/infrastructure.svg")
 ## interservice-communication.svg
