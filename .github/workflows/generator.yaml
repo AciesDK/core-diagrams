@@ -19,7 +19,7 @@ jobs:
       contents: write
     steps:
       - name: checkout diagrams
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: get author and committer info from HEAD commit
         if: github.ref == 'refs/heads/master'
@@ -75,7 +75,7 @@ jobs:
           branch: master
 
       - name: upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: diagrams
           path: artifacts
@@ -93,7 +93,7 @@ jobs:
           git rm -r . || echo "no files"
 
       - name: download artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: diagrams
           path: .
